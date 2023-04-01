@@ -1,0 +1,40 @@
+extends layout
+include msg-block-mixin.pug
+
+block basic
+    .container.min-vh-100
+        article.create-entry.main-content 
+            if messages
+                +validationMsgMixin(messages)
+            if entry
+                - const formattedDate = new Date(entry.date).toLocaleString('en-GB');
+                header.d-flex.justify-content-between
+                    .title-group
+                        h1=entry.title
+                        h2=`Entry for ${formattedDate}`
+                        // delete button should be here
+                .row.g-3
+                    .col-md-6
+                        p.lbl Title
+                        p=entry.title
+                    .col-md-6
+                        p.lbl Temperature
+                        p=entry.temperature
+                    .col-md-6
+                        p.lbl Blood Pressure
+                        p=`${entry.bloodPressure[0]}/${entry.bloodPressure[1]}`
+                    .col-md-6
+                        p.lbl Saturation
+                        p=entry.saturation
+                    if entry.addInfo
+                        .col-md-12 
+                            p.lbl Additional Information
+                            p=entry.addInfo
+                    .col-md-6
+                        a.btn.btn-primary(href=`/api/entries/update/${entry.id}`).w-100 Edit
+                    .col-md-6 
+                        a(href=`/`).btn.btn-secondary.w-100 Go back
+            if msg
+                h1.success.text-success Success
+                p The entry was deleted successfully.
+                a(href=`/`).btn.btn-secondary.w-100 Go back

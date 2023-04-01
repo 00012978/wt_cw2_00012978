@@ -4,16 +4,40 @@ block basic
     article.main-content.container
         section.list-group
             h1 Health Assistant 
-            p Welcome to the health assistant application, designed with your wellness in mind. This innovative tool is here to help you keep track of your health-related data. Whether you're monitoring your heart rate, saturation, temperature, or other characteristics, the application makes it easy to record and analyse your data. With the user-friendly interface, you can easily input and view your information, so you can make informed decisions about your health.
-            
-            p Health Assistant is perfect for anyone looking to take control of their health. It provides a simple and efficient way to track your progress and measure your success. With the application's features, you can easily view your data over time.
+            if !entries && entries.length < 1
+                p Welcome to the health assistant application, designed with your wellness in mind. This innovative tool is here to help you keep track of your health-related data. Whether you're monitoring your heart rate, saturation, temperature, or other characteristics, the application makes it easy to record and analyse your data. With the user-friendly interface, you can easily input and view your information, so you can make informed decisions about your health.
+                
+                p Health Assistant is perfect for anyone looking to take control of their health. It provides a simple and efficient way to track your progress and measure your success. With the application's features, you can easily view your data over time.
 
-            p Take charge of your health and wellness, all from the palm of your hand. Start using the application today and take the first step towards a healthier, happier you!
+                p Take charge of your health and wellness, all from the palm of your hand. Start using the application today and take the first step towards a healthier, happier you!
 
-            p This web application was created to fulfill Web Technology module's requirements and does not represent an actual company or service
+                p This web application was created to fulfill Web Technology module's requirements and does not represent an actual company or service
 
-            br
-            p No entries available yet. Please, navigate here to 
-                a(href="#").primary-link create a new entry.
-                // update link here
+                br
+                p No entries available yet. Please, navigate here to 
+                    a(href="/api/entries/create").primary-link create a new entry.
+            else 
+                p With our app, you can easily monitor and record important health data like heart rate, saturation, temperature, and more. Our intuitive interface makes it simple to view your trends and progress over time, so you can track your health goals and make informed decisions about your well-being. 
+
+                p This web application was created to fulfill Web Technology module's requirements and does not represent an actual company or service
+
+                section#entries
+                    h2 Your Entries
+                    - entries.sort((a, b) => new Date(b.edited) - new Date(a.edited))
+                    if !showAllEntries 
+                        each entry, i in entries.slice(0, 4)
+                            - let formattedDate = new Date(entry.date).toLocaleDateString('en-GB');
+                            - let editDate = new Date(entry.edited).toLocaleDateString('en-GB');
+                            a.rounded.d-block.list-group-item.list-group-item-action.ms-2.ms-auto(href=`/api/entries/view/${entry.id}`)
+                                h3.mb-1.fw-bold=`${entry.title}`
+                                p=`From: ${formattedDate}. Last modified: ${editDate}`
+                        a.btn.btn-primary.mt-3.mb-5.w-100(href='/all#entries') Show All Entries
+                    else
+                        each entry in entries
+                            - let formattedDate = new Date(entry.date).toLocaleDateString('en-GB');
+                            - let editDate = new Date(entry.edited).toLocaleDateString('en-GB');
+                            a.rounded.d-block.list-group-item.list-group-item-action.ms-2.ms-auto(href=`/api/entries/view/${entry.id}`)
+                                h3.mb-1.fw-bold=`${entry.title}`
+                                p=`From: ${formattedDate}. Last modified: ${editDate}`
+                        a.btn.btn-secondary.mt-3.mb-5.w-100(href='/#entries') Show Only Recent Entries
             

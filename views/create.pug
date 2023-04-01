@@ -1,0 +1,39 @@
+extends layout.pug   
+include msg-block-mixin.pug
+
+block basic
+
+    .container.min-vh-100
+        article.create-entry.main-content
+            h1 Create an entry
+
+            if messages
+                +validationMsgMixin(messages)
+
+            form(action='/api/entries/create', method='POST', id='entry-form').entry-form 
+                .row.g-3
+                    .col-md-6
+                        label(for="title", class="form-label") Title
+                        input(type="text", class="form-control", id="title", name="title", required).name-input
+                    .col-md-6
+                        label(for="temperature", class="form-label") Temperature
+                        input(type="number", min="0", max="50", class="form-control", id="temperature", name="temperature", step='0.01', required)
+                    .col-md-3
+                        label(for="sysPressure", class="form-label") Systolic Blood Pressure
+                        input(type="number", min="0", max="500", class="form-control", id="sysPressure", name="sysPressure", required)
+                    .col-md-3
+                        label(for="diaPressure", class="form-label") Diastolic Blood Pressure
+                        input(type="number", min="0", max="500", class="form-control", id="diaPressure", name="diaPressure", required)
+                    .col-md-6
+                        label(for="saturation", class="form-label") Saturation
+                        input(type="number", min="0", max="100", class="form-control", id="saturation", name="saturation", required)
+                    .col-md-12 
+                        label(for="date", class="form-label") Date 
+                        input(type="datetime-local", class="form-control", name="date")
+                    .col-md-12 
+                        label(for="additional-info", class="form-label") Additional Information 
+                        input(type="textarea", class="form-control", name="addInfo")
+                    .col-md-6
+                        button.btn.btn-primary(type="submit", form='entry-form').w-100 Submit
+                    .col-md-6    
+                        a(href="/").btn.btn-secondary.w-100 Go back

@@ -5,21 +5,18 @@
 }
 
 :root {
-    /* colors*/
-    --primary-600: #565fea;
+    /* colors  */
+    --primary-600: #554ed9;
     --grey-bg: #f2f4f8;
     --grey-txt: #292c2c;
     --black: #222;
     --white: #fff;
-    --red-light: #f8d7da;
-    --red-dark: #842029;
-    --green-light: #d1e7dd;
-    --green-dark: #0f5132;
 
     /* typography */
     --headingFont: 'Inconsolata', monospace;
     --bodyFont: 'Montserrat', sans-serif;
     --smallText: 0.7em;
+
     /* rest */
     --backgroundColor: var(--grey-bg);
     --textColor: var(--grey-txt);
@@ -37,6 +34,10 @@ body {
     font-weight: 400;
     line-height: 1.75;
     min-height: 100vh;
+}
+
+.list-group-item {
+    background-color: var(--backgroundColor);
 }
 
 h1,
@@ -110,4 +111,23 @@ nav>ul>li {
 .main-content {
     max-width: var(--max-width);
     padding-top: 2rem;
+}
+
+.lbl {
+    padding: 0.5rem 0;
+    border-bottom: 1px var(--black) solid;
+    width: 100%;
+    font-weight: bold;
+}
+
+@media (max-width: 990px) {
+    .col-md-3 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
 }
