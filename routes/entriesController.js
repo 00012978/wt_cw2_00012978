@@ -85,7 +85,15 @@ const getEntryById = (req, res) => {
 const updateEntry = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
-        return res.render('edit', {messages: errors.array(), entry: req.body}); 
+        let entry = {
+            title: req.body.title,
+            temperature: req.body.temperature,
+            bloodPressure: [req.body.sysPressure, req.body.diaPressure],
+            saturation: req.body.saturation, 
+            date: req.body.date,
+            addInfo: req.body.addInfo
+        }
+        return res.render('edit', {messages: errors.array(), entry: entry}); 
     }
     try {
       const { title, temperature, sysPressure, diaPressure, saturation, date, addInfo } = req.body;
