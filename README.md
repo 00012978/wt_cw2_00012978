@@ -8,9 +8,11 @@ The application was developed for the Web Technology module and does not represe
 
 To use the application locally, you should do the following:
 
-1. Download and unzip the archive with the projects files from the repositories.
+1. Download and unzip the archive with the projects files from the repository.
 2. Run 'npm i' command to install all the dependencies required for running the app.
 3. Run the application by using 'node app.js' command.
+
+Alternatively, follow the link and use the hosted application - https://health-assistant-12978.up.railway.app/ 
 
 ### Dependencies List
 
@@ -20,3 +22,5 @@ To use the application locally, you should do the following:
 - "express-validator": "^6.15.0"
 - "pug": "^3.0.2"
 - "uuid": "^9.0.0"
+
+
