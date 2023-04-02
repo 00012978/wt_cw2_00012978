@@ -13,7 +13,7 @@
     --white: #fff;
 
     /* typography */
-    --headingFont: 'Inconsolata', monospace;
+    --headingFont: 'Courier New', monospace;
     --bodyFont: 'Montserrat', sans-serif;
     --smallText: 0.7em;
 
@@ -46,6 +46,7 @@ h3,
 .logo,
 .sub-logo {
     font-family: var(--headingFont);
+    font-weight: 800;
 }
 
 h2 {

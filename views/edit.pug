@@ -1,0 +1,40 @@
+extends layout.pug 
+include msg-block-mixin.pug
+
+block basic
+    .container.min-vh-100
+        article.create-entry.main-content
+            h1 Edit an entry
+            if messages
+                +validationMsgMixin(messages)
+            form(action=`/api/entries/update/${entry.id}`, method='POST', id='update').entry-form 
+                .row.g-3
+                    input(type="hidden", id="id", name="id", value=`${entry.id}`, required).name-input
+                    .col-md-6
+                        label(for="title", class="form-label") Name
+                        input(type="text", class="form-control", id="title", name="title", value=`${entry.title}`, required).name-input
+                    .col-md-6
+                        label(for="temperature", class="form-label") Temperature
+                        input(type="number", min="0", max="50", class="form-control", id="temperature", name="temperature", step='0.01', value=`${entry.temperature}`, required)
+                    .col-md-3
+                        label(for="sysPressure", class="form-label") Systolic Blood Pressure
+                        input(type="number", min="0", max="500", class="form-control", id="sysPressure", name="sysPressure", value=`${entry.bloodPressure[0]}`, required)
+                    .col-md-3
+                        label(for="diaPressure", class="form-label") Diastolic Blood Pressure
+                        input(type="number", min="0", max="500", class="form-control", id="diaPressure", name="diaPressure", value=`${entry.bloodPressure[1]}`, required)
+                    .col-md-6
+                        label(for="saturation", class="form-label") Saturation
+                        input(type="number", min="0", max="100", class="form-control", id="saturation", name="saturation", value=`${entry.saturation}` required)
+                    .col-md-12 
+                        label(for="dateTime", class="form-label") Date 
+                        - const date = new Date(entry.date + 'Z')
+                        - const formattedDateTime = date.toISOString().slice(0, 16)
+
+                        input(type="datetime-local", class="form-control", name="date", value=formattedDateTime, required)
+                    .col-md-12 
+                        label(for="additional-info", class="form-label") Additional Information 
+                        input(type='textarea', class='form-control', name='addInfo', value=`${entry.addInfo ? entry.addInfo : ''}`)
+                    .col-md-6
+                        button.btn.btn-primary(type='submit', form='update').w-100 Submit
+                    .col-md-6    
+                        a(href=`/api/entries/view/${entry.id}`).btn.btn-secondary.w-100 Go back

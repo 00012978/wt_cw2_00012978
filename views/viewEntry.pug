@@ -1,7 +1,9 @@
-extends layout
+extends layout.pug 
 include msg-block-mixin.pug
 
 block basic
+    
+
     .container.min-vh-100
         article.create-entry.main-content 
             if messages
@@ -12,7 +14,8 @@ block basic
                     .title-group
                         h1=entry.title
                         h2=`Entry for ${formattedDate}`
-                        // delete button should be here
+                    a.d-flex.align-items-center.btn.btn-danger(href=`/api/entries/delete/${entry.id}`)#delete 
+                        span Delete
                 .row.g-3
                     .col-md-6
                         p.lbl Title
@@ -34,7 +37,3 @@ block basic
                         a.btn.btn-primary(href=`/api/entries/update/${entry.id}`).w-100 Edit
                     .col-md-6 
                         a(href=`/`).btn.btn-secondary.w-100 Go back
-            if msg
-                h1.success.text-success Success
-                p The entry was deleted successfully.
-                a(href=`/`).btn.btn-secondary.w-100 Go back
