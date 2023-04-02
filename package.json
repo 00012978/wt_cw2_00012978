@@ -4,7 +4,7 @@
   "description": "The application created for the Web Technology module",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "00012978",
   "license": "ISC",
