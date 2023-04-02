@@ -86,6 +86,7 @@ const updateEntry = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         let entry = {
+            id: req.params.id,
             title: req.body.title,
             temperature: req.body.temperature,
             bloodPressure: [req.body.sysPressure, req.body.diaPressure],
