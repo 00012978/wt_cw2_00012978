@@ -2,6 +2,7 @@ const { check, validationResult } = require('express-validator');
 const validate = [
     check('title', 'Title must be 3+ characters long')
         .exists()
+        .trim()
         .isLength({min:3}),
     check('temperature', 'Temperature must be between 0 and 50')
         .exists()
