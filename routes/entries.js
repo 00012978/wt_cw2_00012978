@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const entriesController = require('./entriesController');
 const axios = require('axios');
-const { check, validationResult } = require('express-validator');
+const PORT = process.env.PORT || 3000;
+const URL = process.env.API_BASE_URL || `http://localhost:${PORT}`
 const validate = require('./validate');
 
 // get all entries
@@ -21,11 +22,10 @@ router.get('/id/:id', entriesController.getEntryById);
 
 // view signle entry route 
 router.get('/view/:id', async (req, res) => {       
-    const apiUrl = `${process.env.API_BASE_URL}/api/entries/id/${req.params.id}`;
+    const apiUrl = `${URL}/api/entries/id/${req.params.id}`;
     try {
         const response = await axios.get(apiUrl);
         const entry = response.data;
-        console.log(`entries variable in .get(/view:id) route = ${JSON.stringify(entry)}`);
         res.render('viewEntry', {entry});
     } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -39,11 +39,10 @@ router.get('/view/:id', async (req, res) => {
 // update route
 router.route('/update/:id')
     .get(async (req, res) => {
-        const apiUrl = `${process.env.API_BASE_URL}/api/entries/id/${req.params.id}`;
+        const apiUrl = `${URL}/api/entries/id/${req.params.id}`;
         try {
             const response = await axios.get(apiUrl);
             const entry = response.data;
-            console.log(`entries variable at get(/update/:id) = ${entry}`)
             res.render('edit', {entry: entry, messages: ''});
         } catch (error) {
             if (error.response && error.response.status === 404) {
@@ -58,7 +57,7 @@ router.route('/update/:id')
 // delete route
 router.route('/delete/:id')
     .get(async (req, res) => {
-        const apiUrl = `${process.env.API_BASE_URL}/api/entries/delete/${req.params.id}`;
+        const apiUrl = `${URL}/api/entries/delete/${req.params.id}`;
         try {
         const response = await axios.delete(apiUrl);
         res.redirect('/'); }

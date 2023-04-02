@@ -1,11 +1,8 @@
 mixin validationMsgMixin(messages)
     div.rounded.alert.alert-warning.alert-dismissible.fade.show(role="alert")
         if (Array.isArray(messages))
-            - console.log(`here is the array on line 4 in pug mixin ${messages}, ${JSON.stringify(messages)}`);
             each message in messages
-                - console.log(`here is the message on line 6 in pug mixin ${(message.msg)}`);
                 p= message.msg
         else
-            - console.log(`here is the single message on line 9 in pug mixin ${JSON.stringify(messages)}`);
             p= messages.msg
         button.btn-close(type="button", data-bs-dismiss="alert", aria-label="Close")

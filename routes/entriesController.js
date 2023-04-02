@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path')
 
 const { v4: uuidv4 } = require('uuid');
-const { check, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const dbPath = path.join(__dirname, '..', 'models', 'entriesDb.json');
 
@@ -85,7 +85,6 @@ const getEntryById = (req, res) => {
 const updateEntry = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
-        console.log(`req body in update is equal to ${JSON.stringify(req.body)}`);
         return res.render('edit', {messages: errors.array(), entry: req.body}); 
     }
     try {
@@ -125,9 +124,6 @@ const updateEntry = (req, res) => {
       res.status(500).render('error', {msg: `Error ${err}`});
     }
   };
-  
-  
-
 
 const deleteEntry = (req, res) => {
     try {

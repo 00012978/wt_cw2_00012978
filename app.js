@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const PORT = 3000
+const PORT = process.env.PORT || 3000;
+const URL = process.env.API_BASE_URL || `http://localhost:${PORT}`
 const app = express();
 const axios = require('axios');
 
@@ -17,7 +18,7 @@ app.set('view engine', 'pug')
 
 app.get('/', async (req, res) => {
   try {
-    const apiUrl = `${process.env.API_BASE_URL}/api/entries`;
+    const apiUrl = `${URL}/api/entries`;
     const response = await axios.get(apiUrl);
     const entries = response.data;
     res.render('index', { entries });
@@ -28,7 +29,7 @@ app.get('/', async (req, res) => {
 
 app.get('/all', async (req, res) => {
   try {
-    const apiUrl = `${process.env.API_BASE_URL}/api/entries`;
+    const apiUrl = `${URL}/api/entries`;
     const response = await axios.get(apiUrl);
     const entries = response.data;
     res.render('index', { entries, showAllEntries:'T' });
